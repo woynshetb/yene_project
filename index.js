@@ -43,13 +43,15 @@ app.put("/update", async (req, res) => {
   const code = form.code;
   const point = form.point;
   const codeUpdate = await codeModel.findOne({ code });
+  console.log(codeUpdate["points"] + 1);
   if (codeUpdate) {
     const updatePoint = {
       $set: {
-        points: point,
+        points: codeUpdate["points"] + 1,
       },
     };
     var result = await codeUpdate.updateOne(updatePoint);
+    console.log(result);
 
     res.status(200).json(result);
   } else {
