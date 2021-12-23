@@ -6,7 +6,7 @@ const app = express();
 
 app.use(express.json({ extended: false }));
 app.use(express.urlencoded({ extended: true }));
-
+const PORT = process.env.PORT || 4000;
 const MONGO_URL =
   "mongodb+srv://yene:yene@cluster0.iwhrf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 // random code working
@@ -102,6 +102,6 @@ app.post("/generatecode", async (req, res) => {
 });
 // generate random number
 
-const server = http.createServer(app).listen(4000, () => {
+const server = http.createServer(app).listen(PORT, () => {
   console.log("working");
 });
