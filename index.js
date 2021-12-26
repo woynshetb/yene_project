@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 const PORT = process.env.PORT || 4000;
 const MONGO_URL =
   "mongodb+srv://yene:yene@cluster0.iwhrf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-// random code working
+//
 mongoose.connect(
   MONGO_URL,
   {
@@ -23,7 +23,16 @@ mongoose.connect(
     console.log("connected");
   }
 );
-// get point information is done
+
+app.get("/getallcode", async (req, res) => {
+  const codes = await codeModel.find({});
+  if (codes) {
+    res.status(200).json(codes);
+  } else {
+    res.status(500).json({ messaage: "error in returning all codes" });
+  }
+});
+// get points
 
 app.get("/getcodepoint/:code", async (req, res) => {
   const code = req.params.code;
@@ -41,7 +50,7 @@ app.put("/update", async (req, res) => {
   // check if it exists
 
   const code = form.code;
-  const point = form.point;
+
   const codeUpdate = await codeModel.findOne({ code });
   console.log(codeUpdate["points"] + 1);
   if (codeUpdate) {
