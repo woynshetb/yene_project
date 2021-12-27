@@ -68,7 +68,7 @@ app.post("/generatecodewithpoint", async (req, res) => {
   function getRandomString() {
     var randomChars = "abcdefghijklmnopqrstuvwxyz";
     var result = "";
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 6; i++) {
       result += randomChars.charAt(
         Math.floor(Math.random() * randomChars.length)
       );
@@ -84,12 +84,12 @@ app.post("/generatecodewithpoint", async (req, res) => {
 
   res.status(200).json(code);
 });
-// initial generation
+// generate random code
 app.post("/generatecode", async (req, res) => {
   function getRandomString() {
     var randomChars = "abcdefghijklmnopqrstuvwxyz";
     var result = "";
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 6; i++) {
       result += randomChars.charAt(
         Math.floor(Math.random() * randomChars.length)
       );
