@@ -23,7 +23,7 @@ mongoose.connect(
     console.log("connected");
   }
 );
-
+// getting all data
 app.get("/getallcode", async (req, res) => {
   const codes = await codeModel.find({});
   if (codes) {
@@ -32,7 +32,8 @@ app.get("/getallcode", async (req, res) => {
     res.status(500).json({ messaage: "error in returning all codes" });
   }
 });
-// get points
+
+// getting one code
 
 app.get("/getcodepoint/:code", async (req, res) => {
   const code = req.params.code;
@@ -45,24 +46,17 @@ app.get("/getcodepoint/:code", async (req, res) => {
 });
 // update points works
 
-app.put("/update", async (req, res) => {
+//
+app.post("/checkcode", async (req, res) => {
   var form = req.body; //
   // check if it exists
 
   const code = form.code;
 
-  const codeUpdate = await codeModel.findOne({ code });
-  console.log(codeUpdate["points"] + 1);
-  if (codeUpdate) {
-    const updatePoint = {
-      $set: {
-        points: codeUpdate["points"] + 1,
-      },
-    };
-    var result = await codeUpdate.updateOne(updatePoint);
-    console.log(result);
+  const checkCode = await codeModel.findOne({ code });
 
-    res.status(200).json(result);
+  if (checkCode) {
+    res.status(200).json(checkCode);
   } else {
     res.status(500).json({ message: "error" });
   }
