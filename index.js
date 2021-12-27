@@ -100,7 +100,7 @@ app.post("/generatecode", async (req, res) => {
   var num = getRandomString();
   const code = codeModel.create({
     code: num,
-    points: 0,
+    points: 1,
   });
 
   res.status(200).json(code);
