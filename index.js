@@ -63,7 +63,7 @@ app.post("/checkcode", async (req, res) => {
 });
 // generate code by passing points
 
-app.post("/generatecodefromUser", async (req, res) => {
+app.post("/generatecodewithpoint", async (req, res) => {
   var points = req.body;
   function getRandomString() {
     var randomChars = "abcdefghijklmnopqrstuvwxyz";
