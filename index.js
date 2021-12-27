@@ -3,7 +3,12 @@ const http = require("http");
 const mongoose = require("mongoose");
 const codeModel = require("./model/code");
 const app = express();
+const cors = require("cors");
 
+var corsOptiona = {
+  origin: "https://yene-challenge.firebaseapp.com/home",
+  optionsSuccessStatus: 200,
+};
 app.use(express.json({ extended: false }));
 app.use(express.urlencoded({ extended: true }));
 const PORT = process.env.PORT || 4000;
@@ -24,7 +29,7 @@ mongoose.connect(
   }
 );
 // getting all data
-app.get("/getallcode", async (req, res) => {
+app.get("/getallcode", cors(corsOptiona), async (req, res) => {
   const codes = await codeModel.find({});
   if (codes) {
     res.status(200).json(codes);
@@ -63,7 +68,7 @@ app.post("/checkcode", async (req, res) => {
 });
 // generate code by passing points
 
-app.post("/generatecodewithpoint", async (req, res) => {
+app.post("/generatecodewithpoint", cors(corsOptiona), async (req, res) => {
   var points = req.body;
   function getRandomString() {
     var randomChars = "abcdefghijklmnopqrstuvwxyz";
@@ -85,7 +90,7 @@ app.post("/generatecodewithpoint", async (req, res) => {
   res.status(200).json(code);
 });
 // generate random code
-app.post("/generatecode", async (req, res) => {
+app.post("/generatecode", cors(corsOptiona), async (req, res) => {
   function getRandomString() {
     var randomChars = "abcdefghijklmnopqrstuvwxyz";
     var result = "";
