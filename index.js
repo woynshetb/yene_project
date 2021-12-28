@@ -7,7 +7,8 @@ const cors = require("cors");
 
 var corsOptiona = {
   origin: "*",
-  methods: "GET,POST,PUT",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
   optionsSuccessStatus: 200,
 };
 app.use(express.json({ extended: false }));
