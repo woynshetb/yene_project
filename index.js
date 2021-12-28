@@ -6,7 +6,8 @@ const app = express();
 const cors = require("cors");
 
 var corsOptiona = {
-  origin: "https://yene-challenge.firebaseapp.com",
+  origin: "*",
+  methods: "GET,POST,PUT",
   optionsSuccessStatus: 200,
 };
 app.use(express.json({ extended: false }));
