@@ -8,6 +8,10 @@ const CodeSchema = new mongoose.Schema({
     type: Number,
     ref: "Points",
   },
+  status: {
+    type: String,
+    ref: "status",
+  },
 });
 
 const Code = mongoose.model("Code", CodeSchema);

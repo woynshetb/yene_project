@@ -28,6 +28,19 @@ mongoose.connect(
     console.log("connected");
   }
 );
+
+// updating status of code
+app.put("/updatecodestatus", async (req, res) => {
+  var form = req.body;
+  code = form.code;
+  const codes = await codeModel.find({ code });
+
+  if (codes) {
+    res.status(200).json(codes);
+  }
+  console.log(form.code);
+});
+
 // getting all data
 app.get("/getallcode", cors(corsOptiona), async (req, res) => {
   const codes = await codeModel.find({});
@@ -49,9 +62,8 @@ app.get("/getcodepoint/:code", async (req, res) => {
     res.status(500).json("error");
   }
 });
-// update points works
 
-//
+// check code and update status
 app.post("/checkcode", async (req, res) => {
   var form = req.body; //
   // check if it exists
@@ -61,7 +73,13 @@ app.post("/checkcode", async (req, res) => {
   const checkCode = await codeModel.findOne({ code });
 
   if (checkCode) {
-    res.status(200).json(checkCode);
+    const updateDoc = {
+      $set: {
+        status: "done",
+      },
+    };
+    const result = await checkCode.updateOne(updateDoc);
+    res.status(200).json(result);
   } else {
     res.status(500).json({ message: "error" });
   }
@@ -106,6 +124,7 @@ app.post("/generatecode", cors(corsOptiona), async (req, res) => {
   const code = codeModel.create({
     code: num,
     points: 1,
+    status: "active",
   });
 
   res.status(200).json(code);
