@@ -29,18 +29,6 @@ mongoose.connect(
   }
 );
 
-// updating status of code
-app.put("/updatecodestatus", async (req, res) => {
-  var form = req.body;
-  code = form.code;
-  const codes = await codeModel.find({ code });
-
-  if (codes) {
-    res.status(200).json(codes);
-  }
-  console.log(form.code);
-});
-
 // getting all data
 app.get("/getallcode", cors(corsOptiona), async (req, res) => {
   const codes = await codeModel.find({});
